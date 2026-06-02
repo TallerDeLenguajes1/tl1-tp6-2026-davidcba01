@@ -48,3 +48,74 @@ else
 {
     Console.WriteLine("La entrada no es un número entero válido");
 }
+
+// Ejercicio 2. Ingrese al branch CalculadoraV1 y construya un programa que sea una 
+// calculadora que permita al usuario realizar las 4 operaciones básicas (Sumar, Restar, 
+// Multiplicar y Dividir) a partir de un menú para seleccionar la opción a elegir y que luego 
+// pida dos números y que devuelva el resultado de la operación seleccionada. Además 
+// una vez que termine de realizar la operación le pregunte si desea realizar otro cálculo.
+
+bool continuar = true;
+
+while (continuar)
+{
+    Console.WriteLine("\n=== CALCULADORA ===");
+    Console.WriteLine("1. Sumar");
+    Console.WriteLine("2. Restar");
+    Console.WriteLine("3. Multiplicar");
+    Console.WriteLine("4. Dividir");
+    Console.Write("Seleccione una opción (1-4): ");
+
+    bool esNum = int.TryParse(Console.ReadLine(), out int opcion); //Recibe la opción en string y la convierte a int
+
+    if (!esNum || opcion < 1 || opcion > 4)
+    {
+        Console.WriteLine("\nOpción inválida");
+    }
+    else
+    {
+        Console.Write("\nIngrese el primer número: ");
+        bool esNum1 = double.TryParse(Console.ReadLine(), out double num1);
+
+        Console.Write("Ingrese el segundo número: ");
+        bool esNum2 = double.TryParse(Console.ReadLine(), out double num2);
+
+        if (!esNum1 || !esNum2)
+        {
+            Console.WriteLine("\nError: Debe ingresar números válidos");
+        }
+        else
+        {
+            switch (opcion)
+            {
+                case 1:
+                    Console.WriteLine($"\nResultado: {num1 + num2}");
+                    break;
+                case 2:
+                    Console.WriteLine($"\nResultado: {num1 - num2}");
+                    break;
+                case 3:
+                    Console.WriteLine($"\nResultado: {num1 * num2}");
+                    break;
+                case 4:
+                    if (num2 != 0)
+                        Console.WriteLine($"\nResultado: {(num1 / num2):F2}"); //F2 para mostrar solo 2 decimales
+                    else
+                        Console.WriteLine("\nError: No se puede dividir por cero");
+                    break;
+            }
+        }
+    }
+
+    Console.Write("\n¿Desea realizar otra operación? (s/n): ");
+    string respuesta = Console.ReadLine();
+
+    if (respuesta.ToLower() == "s")
+    {
+        continuar = true;
+    }
+    else
+    {
+        continuar = false;
+    }
+}
